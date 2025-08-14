@@ -1,0 +1,95 @@
+{
+  "genai_backends": [
+    {
+      "uid": "test-node-1",
+      "name": "测试节点 1",
+      "ip": "localhost",
+      "workPort": 4000,
+      "queryPort": "localhost:3001",
+      "enabled": true,
+      "available_services": ["chatgpt-4", "chatgpt-3.5", "text-embedding"],
+      "gpu_type": "NVIDIA A100",
+      "vram": 80,
+      "max_concurrent": 8
+    },
+    {
+      "id": "gpt-node-1",
+      "name": "ChatGPT 推理节点 1",
+      "ip": "localhost",
+      "port": 5001,
+      "enabled": true,
+      "available_services": ["chatgpt-4", "chatgpt-3.5", "text-embedding"],
+      "gpu_type": "NVIDIA A100",
+      "vram": 80,
+      "max_concurrent": 8
+    },
+    
+    {
+      "id": "sd-node-1",
+      "ip": "localhost",
+      "port": 5002,
+      "name": "Stable Diffusion 渲染节点",
+      "enabled": true,
+      "available_services": ["stable-diffusion-xl", "controlnet", "img2img", "inpainting"],
+      "gpu_type": "NVIDIA RTX 4090",
+      "vram": 24,
+      "max_concurrent": 4
+    },
+    {
+      "id": "multi-ai-node-1",
+      "name": "多功能AI节点",
+      "ip": "localhost",
+      "port": 5003,
+      "enabled": true,
+      "available_services": ["chatgpt-4", "llama-2-70b", "whisper", "dalle-3"],
+      "gpu_type": "NVIDIA H100",
+      "vram": 80,
+      "max_concurrent": 6
+    },
+    {
+      "id": "gpt-node-2",
+      "name": "ChatGPT 推理节点 2",
+      "ip": "192.168.10.104",
+      "port": 5004,
+      "enabled": false,
+      "available_services": ["chatgpt-4", "chatgpt-3.5", "text-davinci"],
+      "disabled_reason": "GPU 升级中",
+      "gpu_type": "NVIDIA A100",
+      "vram": 80,
+      "max_concurrent": 8
+    },
+    {
+      "id": "sd-node-2",
+      "name": "Stable Diffusion 高级节点",
+      "ip": "192.168.10.105",
+      "port": 5005,
+      "enabled": true,
+      "available_services": ["stable-diffusion-2.1", "deepfloyd-if", "video-generation"],
+      "gpu_type": "NVIDIA RTX 6000 Ada",
+      "vram": 48,
+      "max_concurrent": 3
+    }
+  ],
+  "status_summary": {
+    "total_nodes": 5,
+    "enabled_nodes": 4,
+    "disabled_nodes": 1,
+    "services_available": [
+      "chatgpt-4",
+      "chatgpt-3.5",
+      "stable-diffusion-xl",
+      "stable-diffusion-2.1",
+      "llama-2-70b",
+      "whisper",
+      "dalle-3",
+      "controlnet",
+      "img2img",
+      "inpainting",
+      "deepfloyd-if",
+      "video-generation",
+      "text-embedding",
+      "text-davinci"
+    ],
+    "last_updated": "2023-11-15T15:30:00Z"
+  }
+}
