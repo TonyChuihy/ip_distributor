@@ -3,21 +3,18 @@ const os = require("os");
 const { stat } = require("fs");
 
 ///////////////////////////please modify the following code for each machine/////////////////////
-const MACHINE_UID = "test-node-1"; // Uid of this machine, should be same with backend.json
+const MACHINE_UID = "test-node-2"; // Uid of this machine, should be same with backend.json
 // 获取本机IP
 
 const backendConfig = {
   //應與backend.json內容相同
   ip: getLocalIP(),
   queryPort: "localhost:3001", // 负载均衡器查询端口，應對於所有機器相同
-  workPort: 4000, // 工作API端口
+  workPort: 4001, // 工作API端口
   services: ["chatgpt", "stable-diffusion", "llama"],
-  // currentServices: currentServices
 };
 
 ////////////////////////////please modify the above code for each machine///////////////////////////////
-
-const currentServices = ["chatgpt"];
 
 function getLocalIP() {
   const interfaces = os.networkInterfaces();
@@ -48,7 +45,7 @@ wssWork.on("connection", (wsClient) => {
     return;
   }
 
-  console.log(`[Backend] 客户端连接工作接口，提供${currentServices}服务`);
+  console.log("[Backend] 客户端连接工作接口");
   currentClient = wsClient;
 
   // 通知负载均衡器状态更新
@@ -99,12 +96,11 @@ wsLB.on("open", () => {
     JSON.stringify({
       type: "register",
       uid: MACHINE_UID,
-      // ip: backendConfig.ip,
-      // queryPort: backendConfig.queryPort,
-      // workPort: backendConfig.workPort,
-      // services: backendConfig.services,
+      ip: backendConfig.ip,
+      queryPort: backendConfig.queryPort,
+      workPort: backendConfig.workPort,
+      services: backendConfig.services,
       status: status,
-      currentServices: currentServices,
     })
   );
 });
@@ -114,22 +110,6 @@ wsLB.on("message", (data) => {
   const message = JSON.parse(data);
   if (message.type === "registered") {
     console.log(`[Backend] 注册成功，ID: ${MACHINE_UID}`);
-  }
-  if (message.type === "swap_request") {
-    const targetService = message.service;
-    if (backendConfig.services.includes(targetService)) {
-      // 切换服务
-      console.log(`[Backend] 切换服务: ${targetService}`);
-      currentServices[0] = targetService;
-      // 通知负载均衡器状态更新
-      wsLB.send(
-        JSON.stringify({
-          type: "swpped",
-          uid: MACHINE_UID,
-          currentServices: currentServices,
-        })
-      );
-    }
   }
 });
 
@@ -141,7 +121,6 @@ function notifyLoadBalancer(status) {
         type: "status_update",
         uid: MACHINE_UID,
         status: status,
-        currentServices: currentServices,
       })
     );
     console.log(`[Backend] 状态更新: ${status}`);

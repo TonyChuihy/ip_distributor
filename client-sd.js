@@ -3,7 +3,7 @@ const WebSocket = require("ws");
 // 客户端配置
 const clientConfig = {
   lbAddress: "ws://localhost:3000",
-  serviceType: "chatgpt", //stable-diffusion
+  serviceType: "stable-diffusion", //stable-diffusion
 };
 
 let backendConnection = null;

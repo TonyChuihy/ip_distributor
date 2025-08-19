@@ -7,18 +7,31 @@
       "workPort": 4000,
       "queryPort": "localhost:3001",
       "enabled": true,
-      "available_services": ["chatgpt-4", "chatgpt-3.5", "text-embedding"],
+      "available_services": ["chatgpt", "stable-diffusion", "llama"], 
       "gpu_type": "NVIDIA A100",
       "vram": 80,
-      "max_concurrent": 8
+      "max_concurrent": 8,
+      "swap_cd": 1
+    },
+    {
+      "uid": "test-node-2",
+      "name": "测试节点 2",
+      "ip": "localhost",
+      "workPort": 4000,
+      "queryPort": "localhost:4001",
+      "enabled": true,
+      "available_services": ["chatgpt", "stable-diffusion", "llama"], 
+      "gpu_type": "NVIDIA A100",
+      "vram": 80,
+      "max_concurrent": 8,
+      "swap_cd": 10
     },
     {
       "id": "gpt-node-1",
       "name": "ChatGPT 推理节点 1",
       "ip": "localhost",
-      "port": 5001,
+      "available_services": ["chatgpt", "stable-diffusion", "llama"], 
       "enabled": true,
-      "available_services": ["chatgpt-4", "chatgpt-3.5", "text-embedding"],
       "gpu_type": "NVIDIA A100",
       "vram": 80,
       "max_concurrent": 8
